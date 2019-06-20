@@ -17,7 +17,7 @@ ENV KUBECTL_VERSION v1.11.5
 RUN curl --silent --location "https://dl.k8s.io/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" --output /out/usr/local/bin/kubectl \
     && chmod +x /out/usr/local/bin/kubectl
 
-ENV EKSCTL $GOPATH/src/github.com/weaveworks/eksctl
+ENV EKSCTL /eksctl
 COPY . $EKSCTL
 
 ARG COVERALLS_TOKEN
@@ -26,7 +26,7 @@ ENV COVERALLS_TOKEN $COVERALLS_TOKEN
 ARG TEST_TARGET
 ARG GO_BUILD_TAGS
 
-ENV JUNIT_REPORT_DIR $GOPATH/src/github.com/weaveworks/eksctl/test-results/ginkgo
+ENV JUNIT_REPORT_DIR $EKSCTL/test-results/ginkgo
 RUN mkdir -p "${JUNIT_REPORT_DIR}"
 
 WORKDIR $EKSCTL
@@ -38,7 +38,7 @@ RUN make build-integration-test \
     && cp integration/*.yaml /out/usr/local/share/eksctl \
     && cp ./eksctl-integration-test /out/usr/local/bin/eksctl-integration-test
 
-RUN go build ./vendor/github.com/kubernetes-sigs/aws-iam-authenticator/cmd/aws-iam-authenticator \
+RUN go build github.com/kubernetes-sigs/aws-iam-authenticator/cmd/aws-iam-authenticator \
     && cp ./aws-iam-authenticator /out/usr/local/bin/aws-iam-authenticator
 
 FROM scratch
