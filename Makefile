@@ -16,7 +16,7 @@ GOBIN ?= $(shell echo `go env GOPATH`/bin)
 
 .PHONY: install-build-deps
 install-build-deps: ## Install dependencies (packages and tools)
-	@cd build && ./install.sh
+	@./install_build_deps.sh
 
 ##@ Build
 
@@ -133,7 +133,7 @@ ami-check: generate-ami ## Check whether the AMIs have been updated and fail if 
 .PHONY: generate-kubernetes-types
 generate-kubernetes-types: ## Generate Kubernetes API helpers
 	@go mod download k8s.io/code-generator # make sure the code-generator is downloaded
-	@echo "/*\n$$(cat LICENSE)*/\n" > build/codegenheader.txt
+	@echo "/*\n$$(cat LICENSE)*/\n" > codegenheader.txt
 	@env GOPATH="$$(go env GOPATH)" bash "$$(go env GOPATH)/pkg/mod/k8s.io/code-generator@v0.0.0-20190612205613-18da4a14b22b/generate-groups.sh" \
 	  deepcopy,defaulter pkg/apis ./pkg/apis eksctl.io:v1alpha5 --go-header-file build/codegenheader.txt --output-base="$${PWD}"
 
@@ -143,7 +143,7 @@ generate-kubernetes-types: ## Generate Kubernetes API helpers
 .PHONY: eksctl-build-image
 eksctl-build-image: ## Create the the eksctl build docker image
 	@-docker pull $(EKSCTL_BUILD_IMAGE)
-	@docker build --tag=$(EKSCTL_BUILD_IMAGE) --cache-from=$(EKSCTL_BUILD_IMAGE) ./build
+	@docker build --tag=$(EKSCTL_BUILD_IMAGE) --cache-from=$(EKSCTL_BUILD_IMAGE) -f Dockerfile.build .
 
 EKSCTL_IMAGE_BUILD_ARGS := \
   --build-arg=EKSCTL_BUILD_IMAGE=$(EKSCTL_BUILD_IMAGE) \
