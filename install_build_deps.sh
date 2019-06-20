@@ -10,6 +10,7 @@ else
   OSARCH="linux-amd64"
 fi
 
+go mod download
 go install github.com/jteeuwen/go-bindata/go-bindata
 go install github.com/weaveworks/github-release
 go install golang.org/x/tools/cmd/stringer
