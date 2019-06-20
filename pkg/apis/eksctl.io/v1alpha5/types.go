@@ -534,7 +534,7 @@ type (
 // NodeGroupKubeletConfig contains extra config parameters for the kubelet.yaml
 type NodeGroupKubeletConfig map[string]Copyable
 
-// Copyable's only purpose is to make the code generator happy
+// Copyable has the only purpose is to make the code generator happy
 // see https://github.com/kubernetes/code-generator/issues/50
 type Copyable interface {
 	DeepCopyCopyable() Copyable
