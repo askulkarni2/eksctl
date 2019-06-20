@@ -134,8 +134,9 @@ ami-check: generate-ami ## Check whether the AMIs have been updated and fail if 
 generate-kubernetes-types: ## Generate Kubernetes API helpers
 	@go mod download k8s.io/code-generator # make sure the code-generator is downloaded
 	@echo "/*\n$$(cat LICENSE)*/\n" > build/codegenheader.txt
-	@bash "$$(go env GOPATH)/pkg/mod/k8s.io/code-generator@v0.0.0-20190612205613-18da4a14b22b/generate-groups.sh" \
-	  deepcopy,defaulter _ github.com/weaveworks/eksctl/pkg/apis eksctl.io:v1alpha5 --go-header-file build/codegenheader.txt
+	@env GOPATH="$$(go env GOPATH)" bash "$$(go env GOPATH)/pkg/mod/k8s.io/code-generator@v0.0.0-20190612205613-18da4a14b22b/generate-groups.sh" \
+	  deepcopy,defaulter pkg/apis ./pkg/apis eksctl.io:v1alpha5 --go-header-file build/codegenheader.txt --output-base="$${PWD}"
+
 
 ##@ Docker
 
