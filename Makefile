@@ -174,8 +174,8 @@ release: eksctl-build-image ## Create a new eksctl release
 	  --env=GITHUB_TOKEN \
 	  --env=CIRCLE_TAG \
 	  --env=CIRCLE_PROJECT_USERNAME \
-	  --volume=$(CURDIR):/go/src/github.com/weaveworks/eksctl \
-	  --workdir=/go/src/github.com/weaveworks/eksctl \
+	  --volume=$(CURDIR):/eksctl \
+	  --workdir=/eksctl \
 	    $(EKSCTL_BUILD_IMAGE) \
 	      ./do-release.sh
 
