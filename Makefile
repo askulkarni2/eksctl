@@ -153,9 +153,6 @@ EKSCTL_IMAGE_BUILD_ARGS := \
 ifneq ($(COVERALLS_TOKEN),)
 EKSCTL_IMAGE_BUILD_ARGS += --build-arg=COVERALLS_TOKEN=$(COVERALLS_TOKEN)
 endif
-ifneq ($(JUNIT_REPORT_DIR),)
-EKSCTL_IMAGE_BUILD_ARGS += --build-arg=JUNIT_REPORT_DIR=$(JUNIT_REPORT_DIR)
-endif
 ifeq ($(OS),Windows_NT)
 EKSCTL_IMAGE_BUILD_ARGS += --build-arg=TEST_TARGET=unit-test
 else
@@ -175,8 +172,8 @@ release: eksctl-build-image ## Create a new eksctl release
 	  --env=GITHUB_TOKEN \
 	  --env=CIRCLE_TAG \
 	  --env=CIRCLE_PROJECT_USERNAME \
-	  --volume=$(CURDIR):/eksctl \
-	  --workdir=/eksctl \
+	  --volume=$(CURDIR):/src \
+	  --workdir=/src \
 	    $(EKSCTL_BUILD_IMAGE) \
 	      ./do-release.sh
 

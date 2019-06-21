@@ -10,9 +10,8 @@ RUN apk add --no-cache \
 
 ENV CGO_ENABLED=0
 
-ENV EKSCTL /eksctl
-WORKDIR $EKSCTL
-COPY . $EKSCTL
+WORKDIR /src
+COPY . /src
 RUN ./install-build-deps.sh
 
 RUN go install -tags netgo github.com/goreleaser/goreleaser
