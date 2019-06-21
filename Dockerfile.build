@@ -13,7 +13,7 @@ ENV CGO_ENABLED=0
 ENV EKSCTL /eksctl
 WORKDIR $EKSCTL
 COPY . $EKSCTL
-RUN ./install_build_deps.sh
+RUN ./install-build-deps.sh
 
 RUN go install -tags netgo github.com/goreleaser/goreleaser
 
