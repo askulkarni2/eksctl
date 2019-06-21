@@ -118,6 +118,7 @@ delete-integration-test-dev-cluster: build ## Delete the test cluster for use wh
 generate: ## Generate code
 	@chmod g-w  ./pkg/nodebootstrap/assets/*
 	@mkdir -p vendor/github.com/aws/
+	@# Hack for Mockery to find the dependencies handled by `go mod`
 	@ln -sfn "$$(go env GOPATH)/pkg/mod/github.com/aws/aws-sdk-go@v1.19.18" vendor/github.com/aws/aws-sdk-go
 	@go generate ./pkg/nodebootstrap ./pkg/eks/mocks ./pkg/addons/default
 
@@ -132,7 +133,7 @@ ami-check: generate-ami ## Check whether the AMIs have been updated and fail if 
 
 .PHONY: generate-kubernetes-types
 generate-kubernetes-types: ## Generate Kubernetes API helpers
-	@go mod download k8s.io/code-generator # make sure the code-generator is downloaded
+	@go mod download k8s.io/code-generator # make sure the code-generator is present
 	@echo "/*\n$$(cat LICENSE)*/\n" > codegenheader.txt
 	@env GOPATH="$$(go env GOPATH)" bash "$$(go env GOPATH)/pkg/mod/k8s.io/code-generator@v0.0.0-20190612205613-18da4a14b22b/generate-groups.sh" \
 	  deepcopy,defaulter pkg/apis ./pkg/apis eksctl.io:v1alpha5 --go-header-file codegenheader.txt --output-base="$${PWD}"
