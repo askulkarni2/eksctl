@@ -48,7 +48,8 @@ Make a fork of this repository and clone it by running:
 git clone git@github.com:<yourusername>/eksctl.git
 ```
 
-It is discouraged to clone under `go env GOPATH`. Otherwise, you will need to set `GO111MODULE=on` explicitly.
+It is not recommended to clone under your `GOPATH` (if you define one). Otherwise, you will need to set 
+`GO111MODULE=on` explicitly.
 
 
 #### 3. Run the tests and build eksctl
