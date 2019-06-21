@@ -120,7 +120,7 @@ generate: ## Generate code
 	@mkdir -p vendor/github.com/aws/
 	@# Hack for Mockery to find the dependencies handled by `go mod`
 	@ln -sfn "$$(go env GOPATH)/pkg/mod/github.com/aws/aws-sdk-go@v1.19.18" vendor/github.com/aws/aws-sdk-go
-	@go generate ./pkg/nodebootstrap ./pkg/eks/mocks ./pkg/addons/default
+	@GOBIN=$(GOBIN) go generate ./pkg/nodebootstrap ./pkg/eks/mocks ./pkg/addons/default
 
 .PHONY: generate-ami
 generate-ami: ## Generate the list of AMIs for use with static resolver. Queries AWS.

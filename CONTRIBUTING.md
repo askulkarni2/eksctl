@@ -36,13 +36,8 @@ the latest information.
 
 #### 1. Set up your Go environment
 
-This project is written in Go. To be able to contribute you will need:
-
-1. A working Go installation of Go >= 1.12. You can check the
-[official installation guide](https://golang.org/doc/install).
-
-2. Make sure that `$(go env GOPATH)/bin` is in your shell's `PATH`. You can do so by
-   running `export PATH="$(go env GOPATH)/bin:$PATH"`
+This project is written in Go. To be able to contribute you will need a working installation of Go >= 1.12. 
+You can check the [official installation guide](https://golang.org/doc/install).
 
 
 #### 2. Fork and clone the repo
@@ -53,8 +48,7 @@ Make a fork of this repository and clone it by running:
 git clone git@github.com:<yourusername>/eksctl.git
 ```
 
-It is discouraged to clone under `go env GOPATH`. Otherwise you will need to set 
-`GO111MODULE=on` explicitly.
+It is discouraged to clone under `go env GOPATH`. Otherwise, you will need to set `GO111MODULE=on` explicitly.
 
 
 #### 3. Run the tests and build eksctl
